@@ -1,4 +1,3 @@
-package frases;
 /*
  * Frases [option]
  * [options] puede ser "todos", para mostrar todas las frases
