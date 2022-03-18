@@ -21,7 +21,7 @@
 CASO EXTRAIDO DE [Actividad 3 (Santiago Neira)](https://github.com/stgoneira/fundamentos-programacion-java/blob/main/contenidos/Actividades/Actividad%203%20-%20ticket.docx)
 
 ## Autores
-Estructura basica de clases, : Colaboracion entre
+Estructura basica de clases : Colaboracion entre
 * Paola Uribe
 * Michael Philip
 * Rafael Castillo
