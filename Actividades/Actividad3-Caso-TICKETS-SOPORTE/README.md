@@ -20,5 +20,15 @@
 
 CASO EXTRAIDO DE [Actividad 3 (Santiago Neira)](https://github.com/stgoneira/fundamentos-programacion-java/blob/main/contenidos/Actividades/Actividad%203%20-%20ticket.docx)
 
-## Autor
+## Autores
+Estructura basica de clases, : Colaboracion entre
+* Paola Uribe
+* Michael Philip
+* Rafael Castillo
+* Christian Coloma
+* Diego Padilla
+* Adriana Figueroa
+* Andrés Vargas
+
+Resto:
 * Andrés Vargas
