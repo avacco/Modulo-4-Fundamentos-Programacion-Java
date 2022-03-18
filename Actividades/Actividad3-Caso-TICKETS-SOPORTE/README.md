@@ -18,5 +18,7 @@
 *	Diagrama UML de clases
 *	Pruebas unitarias con cobertura sobre el 90%
 
+CASO EXTRAIDO DE [Actividad 3 (Santiago Neira)](https://github.com/stgoneira/fundamentos-programacion-java/blob/main/contenidos/Actividades/Actividad%203%20-%20ticket.docx)
+
 ## Autor
 * Andrés Vargas
