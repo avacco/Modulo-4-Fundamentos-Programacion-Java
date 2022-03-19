@@ -27,8 +27,9 @@ public class Vomistr {
 	//Inicializa constantes de menu
 	private final static int OPCION_MENU_CREAR_TICKET = 1;
 	private final static int OPCION_MENU_VER_TICKET = 2;
-	private final static int OPCION_MENU_VER_PRODUCTOS = 3;
-	private final static int OPCION_MENU_VER_CLIENTES = 4;
+	private final static int OPCION_MENU_EDITAR_TICKET = 3;
+	private final static int OPCION_MENU_VER_PRODUCTOS = 4;
+	private final static int OPCION_MENU_VER_CLIENTES = 5;
 	private final static int OPCION_MENU_SALIR = 0;
 	
 	
@@ -137,6 +138,7 @@ public class Vomistr {
 		producto.add(nuevoProducto6);
 
 		//SOPORTES
+		//Estos contienen credenciales de inicio de sesion, necesarias para usar el programa
 		String rutSoporte = "19.253.890-4";
 		String nombreSoporte = "Andres Vargas";
 		String usuarioSoporte = "admin";
@@ -187,7 +189,7 @@ public class Vomistr {
 		String solucionTicket2 = "Ejemplo de solución";
 		Cliente clienteTicket2 = cliente.get(1);
 		Soporte soporteTicket2 = soporte.get(1);
-		Especialista especialistaTicket2 = especialista.get(1);
+		Especialista especialistaTicket2 = null;
 		Ticket nuevoTicket2 = new Ticket(numeroTicket2,fechaTicket2,descripcionTicket2,estadoTicket2,solucionTicket2,clienteTicket2,soporteTicket2,especialistaTicket2);
 		ticket.add(nuevoTicket2);
 		
@@ -204,8 +206,9 @@ public class Vomistr {
 			System.out.println("====================");
 			System.out.println("1. Crear ticket");
 			System.out.println("2. Ver tickets");
-			System.out.println("3. Ver lista de productos");
-			System.out.println("4. Ver lista de clientes");
+			System.out.println("3. Editar ticket");
+			System.out.println("4. Ver lista de productos");
+			System.out.println("5. Ver lista de clientes");
 			System.out.println("0. Cerrar sesion\n\n");
 			System.out.println("Escoja una opcion");
 
@@ -220,13 +223,15 @@ public class Vomistr {
 				case OPCION_MENU_VER_TICKET:
 					verTicket();
 					break;
+				case OPCION_MENU_EDITAR_TICKET:
+					editarTicket(0); // editarTicket espera un int, se envia provisionalmente un 0.
+					break;
 				case OPCION_MENU_VER_PRODUCTOS:
 					verProductos();
 					break;
 				case OPCION_MENU_VER_CLIENTES:
 					verClientes();
-					break;
-					
+					break;					
 				case OPCION_MENU_SALIR:
 					System.out.println("Se ha cerrado su sesión.\n\n");
 					break;
@@ -239,6 +244,50 @@ public class Vomistr {
 			
 		}while(opcion != OPCION_MENU_SALIR);
 		scanner.nextLine(); // evita un error donde se consume un nextLine() porque a java le pintó
+	}
+
+	private static void editarTicket(int numeroTicket) {
+		// EDITAR TICKET
+		// Edita algunas de las propiedades de un ticket existente
+		// Especificamente, el estado del ticket y la solucion.
+		
+		Ticket editarTicket = null;
+		do {
+			if(numeroTicket == 0 ) {
+				System.out.println("Ingrese numero de ticket a editar");
+				int numeroTicketEditar = scanner.nextInt();
+				editarTicket = buscarTicket(numeroTicketEditar);
+			}else {	
+				editarTicket = buscarTicket(numeroTicket);
+			}
+		}while(editarTicket == null);
+		
+		System.out.println("El ticket a modificar es: Ticket Nº "+editarTicket.getNumeroTicket());		
+		System.out.println("Defina el estado del ticket (Abierto / Cerrado / Derivado)");
+		scanner.nextLine();
+		String estadoTicket = scanner.nextLine();
+		editarTicket.setEstado(estadoTicket);
+		Especialista especialistaTicket = null;
+		
+		if(estadoTicket.equalsIgnoreCase("CERRADO")) {
+			System.out.println("Describa la solucion del problema");
+			String solucionTicket = scanner.nextLine();
+			editarTicket.setSolucionProblema(solucionTicket);
+		}else if(estadoTicket.equalsIgnoreCase("ABIERTO")) {
+			System.out.println("El ticket ha sido abierto");
+			editarTicket.setSolucionProblema("En proceso");
+		}else if(estadoTicket.equalsIgnoreCase("DERIVADO"))
+			editarTicket.setSolucionProblema("En proceso");{
+			System.out.println("El ticket sera derivado.");
+			do {
+				System.out.println("Ingrese el RUT del especialista derivado");
+				String rutEspecialista = scanner.nextLine();			
+				especialistaTicket = buscarEspecialista(rutEspecialista);
+				editarTicket.setEspecialista(especialistaTicket);
+			}while(especialistaTicket == null);	
+		}
+		System.out.println("Ticket modificado correctamente");
+		
 	}
 
 	private static void verClientes() {
@@ -270,13 +319,20 @@ public class Vomistr {
 	private static void verTicket() {
 		// VER TICKETS
 		// Utiliza un ciclo flor para mostrar en consola todos los tickets registrados
+		// Algunos tickets son resueltos sin la intervencion de un especialista
+		// Estos tienen un "Nadie" en Especialista Derivado
 		System.out.println("TICKETS REGISTRADOS");
 		System.out.println("=======================");
 		
 		for (Ticket t : ticket) {
-			System.out.printf(" Numero ticket: %d %n Fecha y hora: %s %n Cliente: %s %n Producto afectado: %s %n Descripcion problema: %s %n Estado ticket: %s %n Solucion Problema: %s %n Atendedor: %s %n Especialista Derivado: %s %n", 
-								t.getNumeroTicket(), formateador.format(t.getFecha()), t.getCliente().getNombre(), t.getCliente().getProducto().getNombreProducto(), t.getDescripcionProblema(), t.getEstado(), t.getSolucionProblema(), t.getSoporte().getNombreSoporte(), t.getEspecialista().getNombreEspecialista());
-			System.out.println("----------------------------------------------------------");								
+			System.out.printf(" Numero ticket: %d %n Fecha y hora: %s %n Cliente: %s %n Producto afectado: %s %n Descripcion problema: %s %n Estado ticket: %s %n Solucion Problema: %s %n Atendedor: %s %n", 
+								t.getNumeroTicket(), formateador.format(t.getFecha()), t.getCliente().getNombre(), t.getCliente().getProducto().getNombreProducto(), t.getDescripcionProblema(), t.getEstado(), t.getSolucionProblema(), t.getSoporte().getNombreSoporte());
+			if(t.getEspecialista() != null) {
+				System.out.println(" Especialista Derivado: "+ t.getEspecialista().getNombreEspecialista());
+			}else {
+				System.out.println(" Especialista Derivado: Nadie");
+			}
+			System.out.println("----------------------------------------------------------\n");								
 		}
 		System.out.println("\n\n");	
 		
@@ -284,7 +340,7 @@ public class Vomistr {
 
 	private static void crearTicket() {
 		// CREAR TICKET
-		// Esta funcion creara un ticket utilizando varios datos sacados del usuario, otros preguntados directamente,
+		// Esta funcion creara un ticket utilizando varios datos sacados del usuario o preguntados directamente,
 		// ademas crea un usuario si este no existe.
 		
 		// El numero del ticket sera igual al numero del ultimo ticket + 1
@@ -293,53 +349,82 @@ public class Vomistr {
 		scanner.nextLine();
 		String descripcionTicket = scanner.nextLine();
 		
-		//Toma los datos del cliente
+		// Toma los datos del cliente, empezando por el RUT.
 		System.out.println("Ingrese los datos del Cliente. \n RUT del cliente:");
 		String rutCliente = scanner.nextLine();
-		System.out.println("Nombre del cliente:");
-		String nombreCliente = scanner.nextLine();
-		System.out.println("Telefono del cliente:");
-		String telefonoCliente = scanner.nextLine();
-		System.out.println("Correo electronico del cliente:");
-		String correoCliente = scanner.nextLine();
-		Producto productoCliente = null; // Inicializa para futura asignacion
+		Cliente clienteTicket = buscarCliente(rutCliente);
 		
-		// Pide el codigo de producto del cliente y llama el metodo buscarProducto() para emparejarlo
-		do { 
-			System.out.println("Ingrese el codigo de producto del cliente:");
-			String codigoProductoCliente = scanner.nextLine();	
-			productoCliente = buscarProducto(codigoProductoCliente);
-		}while(productoCliente == null);
+		if(clienteTicket == null) {
+			System.out.println("Nombre del cliente:");
+			String nombreCliente = scanner.nextLine();
+			System.out.println("Telefono del cliente:");
+			String telefonoCliente = scanner.nextLine();
+			System.out.println("Correo electronico del cliente:");
+			String correoCliente = scanner.nextLine();
+			
+			// Inicializa para futura asignacion
+			Producto productoCliente = null; 
+			
+			// Pide el codigo de producto del cliente y llama el metodo buscarProducto() para emparejarlo
+			// Si el producto retornado es nulo, vuelve a intentarlo.
+			do { 
+				System.out.println("Ingrese el codigo de producto del cliente:");
+				String codigoProductoCliente = scanner.nextLine();	
+				productoCliente = buscarProducto(codigoProductoCliente);
+			}while(productoCliente == null);
+			
+			 //Añade el nuevo cliente
+			clienteTicket = new Cliente(rutCliente,nombreCliente,telefonoCliente,correoCliente, productoCliente);
+			cliente.add(clienteTicket);
+		}else {
+			System.out.println("Cliente encontrado en el registro.");
+		}
 		
-		 //Añade el nuevo cliente
-		Cliente nuevoCliente = new Cliente(rutCliente,nombreCliente,telefonoCliente,correoCliente, productoCliente);
-		cliente.add(nuevoCliente);
-		
-		// Ahora que se creo un nuevo cliente, toma el ultimo cliente generado para luego añadirselo al ticket
-		Cliente clienteTicket = cliente.get(cliente.size() - 1); 
-		
-		//soporteTicket sera igual al ejecutivo actual (quien esta usando el programa)
+		//soporteTicket será igual al ejecutivo actual (quien esta usando el programa)
 		Soporte soporteTicket = ejecutivoActual;
 		
-		//Pide el rut del especialista derivado, luego llama la funcoin buscarEspecialista con el dato
-		Especialista especialistaTicket = null; // Inicializa para futura asignacion
-		do {
-			System.out.println("Ingrese el RUT del especialista derivado");
-			String rutEspecialista = scanner.nextLine();			
-			especialistaTicket = buscarEspecialista(rutEspecialista);
-		}while(especialistaTicket == null);
+		// Inicializa para futura asignacion
+		Especialista especialistaTicket = null; 
+		
+		// Inicializa un valor default para el estado del ticket, puede ser modificado mas adelante.
+		String estadoTicket = "Abierto";
+		
+		//Pregunta si fue derivado a especialista
+		System.out.println("¿Consulta derivada a especialista? (si/no)");
+		String derivado = scanner.nextLine();
+		
+		//Si el problema fue derivado, pide el rut del especialista, luego llama la funcoin buscarEspecialista con el dato
+		// Si el especialista retornado es nulo, vuelve a intentarlo.
+		if(derivado.equalsIgnoreCase("SI")) {	
+			do {
+				System.out.println("Ingrese el RUT del especialista derivado");
+				String rutEspecialista = scanner.nextLine();			
+				especialistaTicket = buscarEspecialista(rutEspecialista);
+				estadoTicket = "Derivado";
+			}while(especialistaTicket == null);
+		}
 		
 		// Estos datos se dan automaticamente
 		String solucionTicket = "En proceso";
-		String estadoTicket = "Abierto";
 		LocalDateTime fechaTicket = LocalDateTime.now();
 		Ticket nuevoTicket = new Ticket(numeroTicket,fechaTicket,descripcionTicket,estadoTicket,solucionTicket,clienteTicket,soporteTicket,especialistaTicket);
 		ticket.add(nuevoTicket);
 		
+		System.out.println("Ticket creado correctamente. ¿Pasar a editar el ticket creado? (si/no)");
+		String decision = scanner.nextLine();
+		if (decision.equalsIgnoreCase("SI")) {
+			editarTicket(numeroTicket);
+		}
+		
 	}
 	
 	
+
+
 	// ESTOS METODOS BUSCAN PRODUCTO Y ESPECIALISTA RESPECTIVAMENTE PARA SU USO AL CREAR TICKET
+	// Busca en los arreglos correspondientes el valor ingresado por el usuario
+	// Si los encuentra rompe el ciclo for y retorna el valor a de donde se llamo
+	// De lo contrario, tira un mensaje de error y retorna nulo.
 	private static Producto buscarProducto(String codigoProductoCliente){
 		Producto productoCliente = null;
 		for (Producto p : producto) {
@@ -372,4 +457,29 @@ public class Vomistr {
 		}
 	}
 	
+	private static Cliente buscarCliente(String rutCliente) {
+		Cliente clienteTicket = null; 
+		for (Cliente c : cliente) {
+			if(rutCliente.equalsIgnoreCase(c.getRut())) {
+				clienteTicket = c;
+				break;
+			}
+		}
+		if(clienteTicket != null) {
+			return clienteTicket;			
+		}else {
+			System.out.println("Cliente no encontrado en los registros. Ingrese sus datos para el registro.");
+			return null;
+		}
+	}
+	
+	private static Ticket buscarTicket(int numeroTicket) {
+		for(Ticket t : ticket) {
+			if (t.getNumeroTicket() == numeroTicket) {
+				return t;
+			}
+		}
+		System.out.println("Numero de ticket invalido. Intente de nuevo.");
+		return null;
+	}
 }
