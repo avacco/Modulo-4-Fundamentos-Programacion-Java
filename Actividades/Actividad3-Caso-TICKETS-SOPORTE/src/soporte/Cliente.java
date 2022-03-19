@@ -6,16 +6,18 @@ public class Cliente {
 	private String nombre;
 	private String telefono;
 	private String correoElectronico;
+	private Producto producto = new Producto();
 	
 	public Cliente() {
 		
 	}
 	
-	public Cliente(String rut, String nombre, String telefono, String correoElectronico) {
+	public Cliente(String rut, String nombre, String telefono, String correoElectronico, Producto producto) {
 		this.rut = rut;
 		this.nombre = nombre;
 		this.telefono = telefono;
 		this.correoElectronico = correoElectronico;
+		this.producto = producto;
 	}
 
 
@@ -52,6 +54,13 @@ public class Cliente {
 		this.correoElectronico = correoElectronico;
 	}
 	
+	public Producto getProducto() {
+		return producto;
+	}
+
+	public void setProducto(Producto producto) {
+		this.producto = producto;
+	}
 	
 	
 }
