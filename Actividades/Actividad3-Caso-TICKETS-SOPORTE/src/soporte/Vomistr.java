@@ -20,7 +20,7 @@ public class Vomistr {
 	private static ArrayList<Cliente> cliente = new ArrayList<Cliente>();
 	private static ArrayList<Ticket> ticket = new ArrayList<Ticket>();
 	
-	//
+	//Inicializa objeto Soporte como nulo, sera definido mas adelante.
 	private static Soporte ejecutivoActual = null;
 	
 	
@@ -63,6 +63,7 @@ public class Vomistr {
 				break;
 			}
 			
+			//Para procesar el login se utiliza un metodo aparte que retornará un booleano. Si el booleano ok es true, pasa al menu, sino, repite el loop.
 			boolean ok = procesarLogin(usuario,pass);
 			
 			if(ok) {
@@ -76,7 +77,8 @@ public class Vomistr {
 	private static boolean procesarLogin(String usuario, String pass) {
 		// PROCESA LAS CREDENCIALES DE LOGIN PARA EJECUTIVO
 		// Busca en los objetos Soporte si existe uno con las credenciales correctas
-		// Si las encuentra, retorna true para que el booleano que controla el acceso al menu permita avanzar
+		// Si las encuentra, retorna true para que el booleano que controla el acceso al menu permita avanzar, de lo contrario retorna false y el loop hace que vuelva a empezar
+		// Además, define el ejecutivoActual inicializado antes como el ejecutivo de soporte que fue encontrado con las credenciales 
 			for (Soporte s: soporte) {
 				if(usuario.equalsIgnoreCase(s.getUsuarioSoporte()) && pass.equals(s.getPassSoporte())) {
 					ejecutivoActual = s;
@@ -193,13 +195,12 @@ public class Vomistr {
 		Ticket nuevoTicket2 = new Ticket(numeroTicket2,fechaTicket2,descripcionTicket2,estadoTicket2,solucionTicket2,clienteTicket2,soporteTicket2,especialistaTicket2);
 		ticket.add(nuevoTicket2);
 		
-		
-		
 	}
 
 	private static void menu() {
 		// MENU
 		// Desde aqui se controlará todo. 
+		// Define una variable opcion que controlará las funciones del menu.
 		int opcion;
 		do {
 			System.out.println("Bienvenido al sistema.");
@@ -247,28 +248,39 @@ public class Vomistr {
 	}
 
 	private static void editarTicket(int numeroTicket) {
-		// EDITAR TICKET
+		// EDITAR TICKET RECIBE UN INT QUE SERA EL NUMERO DE TICKET
 		// Edita algunas de las propiedades de un ticket existente
 		// Especificamente, el estado del ticket y la solucion.
 		
+		// Inicializa objeto Ticket para asignacion futura
 		Ticket editarTicket = null;
+		
+		// Mientras el objeto editarTicket sea nulo, repetira este fragmento de codigo
 		do {
+			
+			// 0 es el predeterminado que es enviado por el menu, y es de por sí utilizado por un ejemplo, y por lo tanto, invalido. Debe ser reasignado.
 			if(numeroTicket == 0 ) {
 				System.out.println("Ingrese numero de ticket a editar");
 				int numeroTicketEditar = scanner.nextInt();
 				editarTicket = buscarTicket(numeroTicketEditar);
-			}else {	
+			}
+			// Cuando el int enviado a este metodo no es 0, se salta el proceso de reasignacion.
+			else {	
 				editarTicket = buscarTicket(numeroTicket);
 			}
 		}while(editarTicket == null);
 		
+		// Una vez definido el numero de ticket, pasamos a la edición proper.
+		// Se define el estado del ticket y hace algo distinto en cada caso. Si se comete un error, se definira el ticket como "Abierto" por defecto.
 		System.out.println("El ticket a modificar es: Ticket Nº "+editarTicket.getNumeroTicket());		
 		System.out.println("Defina el estado del ticket (Abierto / Cerrado / Derivado)");
 		scanner.nextLine();
 		String estadoTicket = scanner.nextLine();
 		editarTicket.setEstado(estadoTicket);
-		Especialista especialistaTicket = null;
 		
+		// Cuando el ticket es CERRADO, se debe dar la solucion del problema.
+		// Cuando el ticket es ABIERTO, se define la "solucion" del problema como En proceso.
+		// Cuando el ticket es DERIVADO, se debe dar el rut del Especialista al que es derivado. Adicionalmente, la "solucion" del problema se define como En proceso.
 		if(estadoTicket.equalsIgnoreCase("CERRADO")) {
 			System.out.println("Describa la solucion del problema");
 			String solucionTicket = scanner.nextLine();
@@ -276,19 +288,29 @@ public class Vomistr {
 		}else if(estadoTicket.equalsIgnoreCase("ABIERTO")) {
 			System.out.println("El ticket ha sido abierto");
 			editarTicket.setSolucionProblema("En proceso");
-		}else if(estadoTicket.equalsIgnoreCase("DERIVADO"))
-			editarTicket.setSolucionProblema("En proceso");{
+		}else if(estadoTicket.equalsIgnoreCase("DERIVADO")){
+			editarTicket.setSolucionProblema("En proceso");
 			System.out.println("El ticket sera derivado.");
-			do {
-				System.out.println("Ingrese el RUT del especialista derivado");
-				String rutEspecialista = scanner.nextLine();			
-				especialistaTicket = buscarEspecialista(rutEspecialista);
-				editarTicket.setEspecialista(especialistaTicket);
-			}while(especialistaTicket == null);	
+			
+			// Define objeto Especialista para futura asignacion
+			Especialista especialistaTicket = null;
+			
+			// Derivacion. Esto se repetira hasta que el rut ingresado sea valido
+				do {
+					System.out.println("Ingrese el RUT del especialista derivado");
+					String rutEspecialista = scanner.nextLine();			
+					especialistaTicket = buscarEspecialista(rutEspecialista);
+					editarTicket.setEspecialista(especialistaTicket);
+				}while(especialistaTicket == null);	
+		}else {
+			System.out.println("Estado no reconocido. Será definido como 'Abierto' por defecto.");
+			editarTicket.setEstado("Abierto");
+			editarTicket.setSolucionProblema("En proceso");
 		}
+			
 		System.out.println("Ticket modificado correctamente");
-		
 	}
+	
 
 	private static void verClientes() {
 		// VER CLIENTES
@@ -341,7 +363,7 @@ public class Vomistr {
 	private static void crearTicket() {
 		// CREAR TICKET
 		// Esta funcion creara un ticket utilizando varios datos sacados del usuario o preguntados directamente,
-		// ademas crea un usuario si este no existe.
+		// Además crea un usuario si este no existe.
 		
 		// El numero del ticket sera igual al numero del ultimo ticket + 1
 		int numeroTicket = ticket.get(ticket.size() - 1).getNumeroTicket() + 1;
@@ -354,6 +376,7 @@ public class Vomistr {
 		String rutCliente = scanner.nextLine();
 		Cliente clienteTicket = buscarCliente(rutCliente);
 		
+		// Si al buscar el cliente este no es encontrado entre los registros, pide datos adicionales para registrar al nuevo cliente.
 		if(clienteTicket == null) {
 			System.out.println("Nombre del cliente:");
 			String nombreCliente = scanner.nextLine();
@@ -366,7 +389,7 @@ public class Vomistr {
 			Producto productoCliente = null; 
 			
 			// Pide el codigo de producto del cliente y llama el metodo buscarProducto() para emparejarlo
-			// Si el producto retornado es nulo, vuelve a intentarlo.
+			// Si el producto retornado es nulo, vuelve a intentarlo. Repite hasta que encuentre un producto valido.
 			do { 
 				System.out.println("Ingrese el codigo de producto del cliente:");
 				String codigoProductoCliente = scanner.nextLine();	
@@ -376,7 +399,9 @@ public class Vomistr {
 			 //Añade el nuevo cliente
 			clienteTicket = new Cliente(rutCliente,nombreCliente,telefonoCliente,correoCliente, productoCliente);
 			cliente.add(clienteTicket);
-		}else {
+		}
+		// Si el cliente ya estaba registrado, se salta todo el proceso de añadir nuevo cliente.
+		else {
 			System.out.println("Cliente encontrado en el registro.");
 		}
 		
@@ -386,14 +411,14 @@ public class Vomistr {
 		// Inicializa para futura asignacion
 		Especialista especialistaTicket = null; 
 		
-		// Inicializa un valor default para el estado del ticket, puede ser modificado mas adelante.
+		// Inicializa un valor default para el estado del ticket que puede ser modificado mas adelante.
 		String estadoTicket = "Abierto";
 		
 		//Pregunta si fue derivado a especialista
 		System.out.println("¿Consulta derivada a especialista? (si/no)");
 		String derivado = scanner.nextLine();
 		
-		//Si el problema fue derivado, pide el rut del especialista, luego llama la funcoin buscarEspecialista con el dato
+		// Si el problema fue derivado, pide el rut del especialista, luego llama la funcion buscarEspecialista con el dato
 		// Si el especialista retornado es nulo, vuelve a intentarlo.
 		if(derivado.equalsIgnoreCase("SI")) {	
 			do {
@@ -407,9 +432,13 @@ public class Vomistr {
 		// Estos datos se dan automaticamente
 		String solucionTicket = "En proceso";
 		LocalDateTime fechaTicket = LocalDateTime.now();
+		
+		// Añade el ticket al array de tickets
 		Ticket nuevoTicket = new Ticket(numeroTicket,fechaTicket,descripcionTicket,estadoTicket,solucionTicket,clienteTicket,soporteTicket,especialistaTicket);
 		ticket.add(nuevoTicket);
 		
+		// Pregunta si el usuario desea pasar a editar directamente este nuevo ticket, si responde si, va al metodo editarTicket enviando como parametro el numero del ticket creado.
+		// De lo contrario, vuelve al menu.
 		System.out.println("Ticket creado correctamente. ¿Pasar a editar el ticket creado? (si/no)");
 		String decision = scanner.nextLine();
 		if (decision.equalsIgnoreCase("SI")) {
@@ -421,7 +450,7 @@ public class Vomistr {
 	
 
 
-	// ESTOS METODOS BUSCAN PRODUCTO Y ESPECIALISTA RESPECTIVAMENTE PARA SU USO AL CREAR TICKET
+	// ESTOS METODOS BUSCAN PRODUCTO, ESPECIALISTA, CLIENTE Y TICKET EN SUS RESPECTIVOS ARRAYLIST
 	// Busca en los arreglos correspondientes el valor ingresado por el usuario
 	// Si los encuentra rompe el ciclo for y retorna el valor a de donde se llamo
 	// De lo contrario, tira un mensaje de error y retorna nulo.
@@ -472,7 +501,7 @@ public class Vomistr {
 			return null;
 		}
 	}
-	
+	// Creo que esta es la forma superior de hacerlo, pero dejare los anteriores porque funcionan bien de todos modos.
 	private static Ticket buscarTicket(int numeroTicket) {
 		for(Ticket t : ticket) {
 			if (t.getNumeroTicket() == numeroTicket) {
