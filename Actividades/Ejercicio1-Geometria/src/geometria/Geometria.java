@@ -39,24 +39,24 @@ public class Geometria {
 			switch(opcion) {
 				case 1:
 					System.out.println("Ingrese base en cm");
-					base = scanner.nextFloat();
+					base = scanner.nextDouble();
 					System.out.println("Ingrese altura en cm");
 					altura = scanner.nextFloat();
 					System.out.println(respuesta = "El area del rectangulo es: "+Rectangulo.areaRectangulo(base,altura)+"cm2");
 					break;
 				case 2:
 					System.out.println("Ingrese diametro del circulo");
-					diametro = scanner.nextFloat();
+					diametro = scanner.nextDouble();
 					System.out.println(respuesta = "El radio del circulo es: "+CalcularRadioCirculo.radioCirculo(diametro)+"cm");
 					break;
 				case 3:
 					System.out.println("Ingrese radio del circulo");
-					radio = scanner.nextFloat();					
+					radio = scanner.nextDouble();					
 					System.out.println(respuesta = "El perimetro del circulo es: "+CalcularPerimetroCirculo.perimetroCirculo(Math.PI,radio)+"cm");
 					break;
 				case 4:
 					System.out.println("Ingrese radio del circulo");
-					radio = scanner.nextFloat();		
+					radio = scanner.nextDouble();		
 					System.out.println(respuesta = "El area del circulo es: "+CalcularAreaCirculo.areaCirculo(Math.PI,radio)+"cm2");
 					break;
 				case 0:
