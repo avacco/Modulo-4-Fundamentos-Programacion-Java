@@ -10,7 +10,6 @@ public class Especialista {
 	}
 
 	public Especialista(String rutEspecialista, String nombreEspecialista) {
-		super();
 		this.rutEspecialista = rutEspecialista;
 		this.nombreEspecialista = nombreEspecialista;
 	}

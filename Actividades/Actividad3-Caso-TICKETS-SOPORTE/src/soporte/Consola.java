@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
-public class Vomistr {
+public class Consola {
 	
 	//Inicializa scanner
     static Scanner scanner = new Scanner(System.in);
@@ -44,7 +44,7 @@ public class Vomistr {
 
 	}
 
-	private static void login() {
+	public static void login() {
 		// LOGIN
 		// Atrapa el metodo en un bucle
 		// Pide el usuario y contraseña del ejecutivo. Si estan registrados, y las credenciales son correctas, pasa al menu
@@ -74,7 +74,7 @@ public class Vomistr {
 		}while(loop == true);
 	}
 
-	private static boolean procesarLogin(String usuario, String pass) {
+	public static boolean procesarLogin(String usuario, String pass) {
 		// PROCESA LAS CREDENCIALES DE LOGIN PARA EJECUTIVO
 		// Busca en los objetos Soporte si existe uno con las credenciales correctas
 		// Si las encuentra, retorna true para que el booleano que controla el acceso al menu permita avanzar, de lo contrario retorna false y el loop hace que vuelva a empezar
@@ -88,7 +88,7 @@ public class Vomistr {
 		return false;
 	}
 
-	private static void inicializar() {
+	public static void inicializar() {
 		/* INICIALIZA: 
 		* ESPECIALISTAS
 		* PRODUCTOS
@@ -247,7 +247,7 @@ public class Vomistr {
 		scanner.nextLine(); // evita un error donde se consume un nextLine() porque a java le pintó
 	}
 
-	private static void editarTicket(int numeroTicket) {
+	public static void editarTicket(int numeroTicket) {
 		// EDITAR TICKET RECIBE UN INT QUE SERA EL NUMERO DE TICKET
 		// Edita algunas de las propiedades de un ticket existente
 		// Especificamente, el estado del ticket y la solucion.
@@ -312,7 +312,7 @@ public class Vomistr {
 	}
 	
 
-	private static void verClientes() {
+	public static void verClientes() {
 		// VER CLIENTES
 		// Utiliza un ciclo for para mostrar en consola todos los clientes registrados
 		System.out.println("CLIENTES");
@@ -325,7 +325,7 @@ public class Vomistr {
 		System.out.println("\n\n");	
 	}
 
-	private static void verProductos() {
+	public static void verProductos() {
 		// VER PRODUCTOS
 		// Utiliza un ciclo for para mostrar en consola todos los productos disponibles
 		System.out.println("PRODUCTOS DISPONIBLES");
@@ -338,7 +338,7 @@ public class Vomistr {
 		System.out.println("\n\n");		
 	}
 
-	private static void verTicket() {
+	public static void verTicket() {
 		// VER TICKETS
 		// Utiliza un ciclo flor para mostrar en consola todos los tickets registrados
 		// Algunos tickets son resueltos sin la intervencion de un especialista
@@ -360,7 +360,7 @@ public class Vomistr {
 		
 	}
 
-	private static void crearTicket() {
+	public static void crearTicket() {
 		// CREAR TICKET
 		// Esta funcion creara un ticket utilizando varios datos sacados del usuario o preguntados directamente,
 		// Además crea un usuario si este no existe.
@@ -454,7 +454,7 @@ public class Vomistr {
 	// Busca en los arreglos correspondientes el valor ingresado por el usuario
 	// Si los encuentra rompe el ciclo for y retorna el valor a de donde se llamo
 	// De lo contrario, tira un mensaje de error y retorna nulo.
-	private static Producto buscarProducto(String codigoProductoCliente){
+	public static Producto buscarProducto(String codigoProductoCliente){
 		Producto productoCliente = null;
 		for (Producto p : producto) {
 			if(codigoProductoCliente.equalsIgnoreCase(p.getCodigoProducto())) {
@@ -470,7 +470,7 @@ public class Vomistr {
 		}
 	}
 	
-	private static Especialista buscarEspecialista(String rutEspecialista) {
+	public static Especialista buscarEspecialista(String rutEspecialista) {
 		Especialista especialistaTicket = null; 
 		for (Especialista e : especialista) {
 			if(rutEspecialista.equalsIgnoreCase(e.getRutEspecialista())) {
@@ -486,7 +486,7 @@ public class Vomistr {
 		}
 	}
 	
-	private static Cliente buscarCliente(String rutCliente) {
+	public static Cliente buscarCliente(String rutCliente) {
 		Cliente clienteTicket = null; 
 		for (Cliente c : cliente) {
 			if(rutCliente.equalsIgnoreCase(c.getRut())) {
@@ -502,7 +502,7 @@ public class Vomistr {
 		}
 	}
 	// Creo que esta es la forma superior de hacerlo, pero dejare los anteriores porque funcionan bien de todos modos.
-	private static Ticket buscarTicket(int numeroTicket) {
+	public static Ticket buscarTicket(int numeroTicket) {
 		for(Ticket t : ticket) {
 			if (t.getNumeroTicket() == numeroTicket) {
 				return t;
