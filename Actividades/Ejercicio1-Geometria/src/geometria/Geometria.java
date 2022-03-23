@@ -17,11 +17,6 @@ public class Geometria {
 	
 	public static void main(String[] args) {
 		boolean loop = true;
-		String respuesta;
-		double radio;
-		double diametro;
-		double base;
-		double altura;
 		
 		do {
 			System.out.println("GEOMETRIA.");
@@ -38,26 +33,16 @@ public class Geometria {
 
 			switch(opcion) {
 				case 1:
-					System.out.println("Ingrese base en cm");
-					base = scanner.nextDouble();
-					System.out.println("Ingrese altura en cm");
-					altura = scanner.nextFloat();
-					System.out.println(respuesta = "El area del rectangulo es: "+Rectangulo.areaRectangulo(base,altura)+"cm2");
+					areaRectangulo();
 					break;
 				case 2:
-					System.out.println("Ingrese diametro del circulo");
-					diametro = scanner.nextDouble();
-					System.out.println(respuesta = "El radio del circulo es: "+CalcularRadioCirculo.radioCirculo(diametro)+"cm");
+					radioCirculo();
 					break;
 				case 3:
-					System.out.println("Ingrese radio del circulo");
-					radio = scanner.nextDouble();					
-					System.out.println(respuesta = "El perimetro del circulo es: "+CalcularPerimetroCirculo.perimetroCirculo(Math.PI,radio)+"cm");
+					perimetroCirculo();
 					break;
 				case 4:
-					System.out.println("Ingrese radio del circulo");
-					radio = scanner.nextDouble();		
-					System.out.println(respuesta = "El area del circulo es: "+CalcularAreaCirculo.areaCirculo(Math.PI,radio)+"cm2");
+					areaCirculo();
 					break;
 				case 0:
 					System.out.println("Saliendo...");
@@ -71,6 +56,45 @@ public class Geometria {
 		}while(loop);
 			
 		}
+
+	private static void areaCirculo() {
+		System.out.println("Ingrese diametro del circulo");
+		double diametro = scanner.nextDouble();		
+		Circulo circulo = new Circulo(diametro);
+		double area = circulo.areaCirculo();
+		System.out.println("El area del circulo es: "+area);
+		
+	}
+
+	private static void perimetroCirculo() {
+		System.out.println("Ingrese diametro del circulo");
+		double diametro = scanner.nextDouble();		
+		Circulo circulo = new Circulo(diametro);
+		double perimetro = circulo.perimetroCirculo();
+		System.out.println("El perimetro del circulo es: "+perimetro);
+		
+		
+	}
+
+	private static void radioCirculo() {
+		System.out.println("Ingrese diametro del circulo");
+		double diametro = scanner.nextDouble();
+		Circulo circulo = new Circulo(diametro);
+		double radio = circulo.radioCirculo();
+		System.out.println("El radio del circulo es: "+radio);		
+	}
+
+	private static void areaRectangulo() {
+		System.out.println("Ingrese base en cm");
+		double base = scanner.nextDouble();
+		System.out.println("Ingrese altura en cm");
+		double altura = scanner.nextFloat();
+		Rectangulo rectangulo = new Rectangulo(base, altura);
+		double area = rectangulo.areaRectangulo();
+		System.out.println("El area del rectangulo es: "+area);
+	}
+	
+	
 	
 
 
