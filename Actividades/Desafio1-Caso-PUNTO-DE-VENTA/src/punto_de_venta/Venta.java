@@ -37,6 +37,19 @@ public class Venta {
 		this.fecha = LocalDateTime.now();
 	}
 
-	
+	public int calcularTotal() {
+		int total = 0;	
+		for (LineaDetalle l: this.lineasDetalle) {
+			total = total + l.calcularSubtotal();
+		}
+		return total;
+	}
+	public String productosTotales() {
+		String productos = " Productos comprados: ";		
+		for (LineaDetalle l: this.lineasDetalle) {
+			productos = productos+ " | " +l.getCantidad() +" "+ l.getProducto().getNombre()+ " | ";
+		}	
+		return productos;
+	}
 	
 }

@@ -26,7 +26,7 @@ public class PuntoVenta {
 	public final static int OPCION_MENU_LISTA = 3;
 	public final static int OPCION_MENU_VENTAS = 4;
 	public final static int OPCION_MENU_COMPRAR = 5;
-	public final static int OPCION_MENU_PAGAR = 6;
+	public final static int OPCION_MENU_REPORTE = 6;
 	public final static int OPCION_MENU_SALIR = 7;
 	
 	public static void main(String[] args) {
@@ -60,8 +60,8 @@ public class PuntoVenta {
 				case OPCION_MENU_COMPRAR:
 					comprarProductos();
 					break;
-				case OPCION_MENU_PAGAR:
-					pagarProductos();
+				case OPCION_MENU_REPORTE:
+					generarReporte();
 					break;
 				case OPCION_MENU_SALIR:
 					System.out.println("Saliendo...");
@@ -78,10 +78,12 @@ public class PuntoVenta {
 	
 
 
-	private static void pagarProductos() {
+	private static void generarReporte() {
 		System.out.println("NO IMPLEMENTADO");
 		
 	}
+
+
 
 	private static void comprarProductos() {
 		Venta venta = new Venta();
@@ -113,12 +115,9 @@ public class PuntoVenta {
 		seguirAgregandoProductos = scanner.next().equalsIgnoreCase("SI") ? true : false;
 		}while (seguirAgregandoProductos == true);
 		
-		scanner.nextLine();
-		System.out.println("¿La venta fue pagada? (si/no)");
-		boolean ventaPagada = scanner.nextLine().equalsIgnoreCase("SI") ? true : false;
-		if (ventaPagada) {
-			ventas.add(venta);
-		}
+		// Añade la venta al terminar de agregar los objetos al carro
+		ventas.add(venta);
+		
 		
 	}
 
@@ -126,8 +125,10 @@ public class PuntoVenta {
 		System.out.println("\n VENTAS");
 		System.out.println("==============");
 		
-		for (Venta venta : ventas) {
-			System.out.printf("Fecha: %s %n Total: %s %n", formateador.format(venta.getFecha()), venta.getLineasDetalle());
+		for (Venta venta : ventas) {			
+			System.out.printf(" Fecha: %s %n", formateador.format(venta.getFecha()));
+			System.out.println(venta.productosTotales());
+			System.out.printf(" Total: %s %n", venta.calcularTotal());
 			System.out.println("--------------------------------------------------");
 		}
 		System.out.println("\n\n");			}
@@ -195,7 +196,7 @@ public class PuntoVenta {
 		System.out.println("3. Ver lista de productos");
 		System.out.println("4. Ver ventas realizadas");
 		System.out.println("5. Agregar productos al carro");
-		System.out.println("6. Pagar");
+		System.out.println("6. Generar reporte");
 		System.out.println("7. Salir \n");
 
 		System.out.println("Seleccione una opcion del 1 al 7");
