@@ -1,6 +1,7 @@
 package punto_de_venta;
 
 import java.util.ArrayList;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 /*
  * Crear una aplicacion de consola que permita registrar y eliminar productos,
@@ -9,6 +10,9 @@ import java.util.Scanner;
  * */
 public class PuntoVenta {
 
+	// formateador de fecha para localdatetime
+	static DateTimeFormatter formateador = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+	
 	//arrays avanzados con ArrayList
 	private static ArrayList<Producto> productos = new ArrayList<Producto>();
 	private static ArrayList<Venta> ventas = new ArrayList<Venta>();
@@ -87,6 +91,7 @@ public class PuntoVenta {
 		// Muestra los productos disponibles.
 		verListaProductos();
 		// Pregunta al usuario el codigo de producto a comprar
+		scanner.nextLine(); // ataja \n de verListaProductos()
 		System.out.println("Escriba el codigo del producto que desea comprar: ");
 		String codigo = scanner.nextLine();
 		
@@ -97,7 +102,7 @@ public class PuntoVenta {
 		System.out.println("Escriba la cantidad que desea comprar: ");
 		int cantidad = scanner.nextInt();
 		
-		//Crea una linea de detalle
+		//Crea una linea de detalle con el producto y la cantidad
 		LineaDetalle lineaDetalle = new LineaDetalle(cantidad,producto);
 		venta.agregarLineaDetalle(lineaDetalle);
 		
@@ -108,6 +113,7 @@ public class PuntoVenta {
 		seguirAgregandoProductos = scanner.next().equalsIgnoreCase("SI") ? true : false;
 		}while (seguirAgregandoProductos == true);
 		
+		scanner.nextLine();
 		System.out.println("¿La venta fue pagada? (si/no)");
 		boolean ventaPagada = scanner.nextLine().equalsIgnoreCase("SI") ? true : false;
 		if (ventaPagada) {
@@ -117,8 +123,14 @@ public class PuntoVenta {
 	}
 
 	private static void verVentasProductos() {
-		System.out.println("NO IMPLEMENTADO");
-			}
+		System.out.println("\n VENTAS");
+		System.out.println("==============");
+		
+		for (Venta venta : ventas) {
+			System.out.printf("Fecha: %s %n Total: %s %n", formateador.format(venta.getFecha()), venta.getLineasDetalle());
+			System.out.println("--------------------------------------------------");
+		}
+		System.out.println("\n\n");			}
 
 	private static void verListaProductos() {
 		System.out.println("\n PRODUCTOS");

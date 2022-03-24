@@ -1,27 +1,28 @@
 package punto_de_venta;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 
 public class Venta {
 
-	private Calendar fecha = Calendar.getInstance();
+	private LocalDateTime fecha;
 	private ArrayList<LineaDetalle> lineasDetalle = new ArrayList<>();
 	
 	
 	public Venta() {
 		
 	}
-	public Venta(Calendar fecha, ArrayList<LineaDetalle> lineasDetalle) {
+	public Venta(LocalDateTime fecha, ArrayList<LineaDetalle> lineasDetalle) {
 		this.fecha = fecha;
 		this.lineasDetalle = lineasDetalle;
 	}
 	
 	
-	public Calendar getFecha() {
+	public LocalDateTime getFecha() {
 		return fecha;
 	}
-	public void setFecha(Calendar fecha) {
+	public void setFecha(LocalDateTime fecha) {
 		this.fecha = fecha;
 	}
 	public ArrayList<LineaDetalle> getLineasDetalle() {
@@ -31,12 +32,11 @@ public class Venta {
 		this.lineasDetalle = lineasDetalle;
 	}
 	
-	
-	
 	public void agregarLineaDetalle(LineaDetalle lineaDetalle) {
 		this.lineasDetalle.add(lineaDetalle);
+		this.fecha = LocalDateTime.now();
 	}
-	
+
 	
 	
 }

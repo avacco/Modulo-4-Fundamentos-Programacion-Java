@@ -10,6 +10,10 @@ public class Circulo {
 	}
 
 
+	public Circulo() {
+	}
+
+
 	public double getDiametro() {
 		return diametro;
 	}
