@@ -93,8 +93,8 @@ public class Geometria {
 	private static void radioCirculo() {
 		try {
 				
-			System.out.println("Ingrese diametro del circulo");
-			double diametro = scanner.nextDouble();
+			System.out.println("Ingrese radio del circulo");
+			double diametro = scanner.nextDouble() * 2;
 			Circulo circulo = new Circulo(diametro);
 			double radio = circulo.radioCirculo();
 			System.out.println("El radio del circulo es: "+radio);		

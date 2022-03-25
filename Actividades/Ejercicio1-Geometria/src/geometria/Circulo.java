@@ -4,7 +4,6 @@ public class Circulo {
 	
 	private double diametro;
 	
-	
 	public Circulo(double diametro) {
 		this.diametro = diametro;
 	}
