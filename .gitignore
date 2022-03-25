@@ -6,3 +6,5 @@
 /Actividades/Desafio1-Caso-PUNTO-DE-VENTA/.settings/
 Actividades/Ejercicio1-Geometria/bin/
 Actividades/Ejercicio1-Geometria/.settings/
+*.class
+*bin
