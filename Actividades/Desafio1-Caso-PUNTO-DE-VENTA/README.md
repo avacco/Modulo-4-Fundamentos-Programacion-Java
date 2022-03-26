@@ -11,8 +11,6 @@ Se solicita utilizar:
 - Generar casos de prueba (cobertura sobre 90%)
 - Generar modelo UML de clases 
 
-Fecha de entrega: Sábado 19 de Marzo hasta las 10:00 hrs
-
 CASO EXTRAIDO DE [Desafio 1 (Santiago Neira)](https://github.com/stgoneira/fundamentos-programacion-java/blob/main/desafios/desafio-1/README.md)
 
 
