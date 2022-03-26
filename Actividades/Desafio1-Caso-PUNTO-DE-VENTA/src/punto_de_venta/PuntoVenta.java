@@ -1,6 +1,8 @@
 package punto_de_venta;
 
 import java.util.ArrayList;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 /*
@@ -79,11 +81,33 @@ public class PuntoVenta {
 
 
 	private static void generarReporte() {
-		System.out.println("NO IMPLEMENTADO");
+		
+		// Define el nombre del archivo y su contenido con Strings
+		String nombreArchivo = "REPORTE-VENTAS.csv";
+		String contenidoArchivo = "REPORTE VENTAS\n==============\n";
+		
+		for (Venta venta : ventas) {
+			contenidoArchivo += "Fecha: "+ formateador.format(venta.getFecha())+"\n";
+			contenidoArchivo += venta.productosTotales()+"\n";
+			contenidoArchivo += "Total: "+venta.calcularTotal()+"\n";
+			contenidoArchivo += "-----------------------------------------------\n";
+		}
+		
+		//Utiliza un try-catch para evitar que el programa se rompa.
+		try {
+			// Crea un objeto FileWriter, importado desde utilidades de java
+			// Se encargará de crear el archivo a partir de los Strings definidos antes
+			FileWriter writer = new FileWriter(nombreArchivo);
+			writer.write(contenidoArchivo);
+			writer.close();
+			
+			System.out.println("Archivo generado exitosamente");
+			
+		} catch(IOException ioe) {
+			System.out.println("Fallo al escribir el archivo.");
+		}
 		
 	}
-
-
 
 	private static void comprarProductos() {
 		Venta venta = new Venta();
