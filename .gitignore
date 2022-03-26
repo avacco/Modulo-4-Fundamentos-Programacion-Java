@@ -8,3 +8,6 @@ Actividades/Ejercicio1-Geometria/bin/
 Actividades/Ejercicio1-Geometria/.settings/
 *.class
 *bin
+/Actividades/pruebas
+/Actividades/bodegas
+/.metadata/
