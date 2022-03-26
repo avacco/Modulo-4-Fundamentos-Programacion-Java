@@ -77,35 +77,50 @@ public class PuntoVenta {
 		// el bucle se repite mientras la opcion seleccionada no sea SALIR
 		
 	}
+
+	private static void registrarProducto() {
+		scanner.nextLine();
+		System.out.println("Ingrese un codigo para su producto");
+		String codigoProducto = scanner.nextLine();
+
+		System.out.println("Ingrese un nombre para su producto");
+		String nombreProducto = scanner.nextLine();
+		
+		System.out.println("Ingrese un precio para su producto");
+		int precioProducto = scanner.nextInt();
+		
+		Producto nuevoProducto = new Producto(codigoProducto, nombreProducto, precioProducto);
+		productos.add(nuevoProducto);
+		
+	}	
 	
-
-
-	private static void generarReporte() {
+	private static void eliminarProducto() {
+		scanner.nextLine();
+		System.out.println("Escriba el codigo del producto a eliminar: ");
+		String codigo = scanner.nextLine();
+		System.out.println(codigo);
 		
-		// Define el nombre del archivo y su contenido con Strings
-		String nombreArchivo = "REPORTE-VENTAS.csv";
-		String contenidoArchivo = "REPORTE VENTAS\n==============\n";
-		
-		for (Venta venta : ventas) {
-			contenidoArchivo += "Fecha: "+ formateador.format(venta.getFecha())+"\n";
-			contenidoArchivo += venta.productosTotales()+"\n";
-			contenidoArchivo += "Total: "+venta.calcularTotal()+"\n";
-			contenidoArchivo += "-----------------------------------------------\n";
+		Producto producto = buscarProducto(codigo);
+		if (producto != null) {
+			productos.remove(producto);
+			System.out.printf("Se ha eliminado el producto: %s %n%n", producto.getNombre());
+		}else {
+			System.out.printf("No se ha encontrado el producto %n%n");
 		}
 		
-		//Utiliza un try-catch para evitar que el programa se rompa.
-		try {
-			// Crea un objeto FileWriter, importado desde utilidades de java
-			// Se encargará de crear el archivo a partir de los Strings definidos antes
-			FileWriter writer = new FileWriter(nombreArchivo);
-			writer.write(contenidoArchivo);
-			writer.close();
-			
-			System.out.println("Archivo generado exitosamente");
-			
-		} catch(IOException ioe) {
-			System.out.println("Fallo al escribir el archivo.");
+	}
+
+	private static void verListaProductos() {
+		System.out.println("\n PRODUCTOS");
+		System.out.println("==============");
+		
+		for (Producto producto : productos) {
+			System.out.printf("Codigo: %s Producto: %s Precio: %d %n", producto.getCodigo(), producto.getNombre(), producto.getPrecio());
+			System.out.println("--------------------------------------------------");
 		}
+		System.out.println("\n\n");
+
+		
 		
 	}
 
@@ -157,32 +172,34 @@ public class PuntoVenta {
 		}
 		System.out.println("\n\n");			}
 
-	private static void verListaProductos() {
-		System.out.println("\n PRODUCTOS");
-		System.out.println("==============");
+	private static void generarReporte() {
 		
-		for (Producto producto : productos) {
-			System.out.printf("Codigo: %s Producto: %s Precio: %d %n", producto.getCodigo(), producto.getNombre(), producto.getPrecio());
-			System.out.println("--------------------------------------------------");
+		// Define el nombre del archivo y su contenido con Strings
+		String nombreArchivo = "REPORTE-VENTAS.csv";
+		
+		// Crea un titulo, no estoy acostumbrado a trabajar con CSV asi que lo haré lo mas parecido al reporte de consola posible.
+		String contenidoArchivo = "REPORTE VENTAS\n==============\n";
+
+		// Por cada venta realizada, anota la fecha, los productos vendidos y el total de cada venta.
+		for (Venta venta : ventas) {
+			contenidoArchivo += "Fecha: "+ formateador.format(venta.getFecha())+"\n";
+			contenidoArchivo += venta.productosTotales()+"\n";
+			contenidoArchivo += "Total: "+venta.calcularTotal()+"\n";
+			contenidoArchivo += "-----------------------------------------------\n";
 		}
-		System.out.println("\n\n");
-
 		
-		
-	}
-
-	private static void eliminarProducto() {
-		scanner.nextLine();
-		System.out.println("Escriba el codigo del producto a eliminar: ");
-		String codigo = scanner.nextLine();
-		System.out.println(codigo);
-		
-		Producto producto = buscarProducto(codigo);
-		if (producto != null) {
-			productos.remove(producto);
-			System.out.printf("Se ha eliminado el producto: %s %n%n", producto.getNombre());
-		}else {
-			System.out.printf("No se ha encontrado el producto %n%n");
+		//Utiliza un try-catch para evitar que el programa se rompa.
+		try {
+			// Crea un objeto FileWriter, importado desde utilidades de java
+			// Se encargará de crear el archivo a partir de los Strings definidos antes (nombreArchivo y contenidoArchivo)
+			FileWriter writer = new FileWriter(nombreArchivo);
+			writer.write(contenidoArchivo);
+			writer.close();
+			
+			System.out.println("Archivo generado exitosamente");
+			
+		} catch(IOException ioe) {
+			System.out.println("Fallo al escribir el archivo.");
 		}
 		
 	}
@@ -194,23 +211,6 @@ public class PuntoVenta {
 			}
 		}
 		return null;
-	}
-	
-
-	private static void registrarProducto() {
-		scanner.nextLine();
-		System.out.println("Ingrese un codigo para su producto");
-		String codigoProducto = scanner.nextLine();
-
-		System.out.println("Ingrese un nombre para su producto");
-		String nombreProducto = scanner.nextLine();
-		
-		System.out.println("Ingrese un precio para su producto");
-		int precioProducto = scanner.nextInt();
-		
-		Producto nuevoProducto = new Producto(codigoProducto, nombreProducto, precioProducto);
-		productos.add(nuevoProducto);
-		
 	}
 
 	private static int menu() {
