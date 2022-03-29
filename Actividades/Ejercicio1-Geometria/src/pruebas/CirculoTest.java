@@ -1,8 +1,10 @@
-package geometria;
+package pruebas;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
+
+import geometria.Circulo;
 
 class CirculoTest {
 

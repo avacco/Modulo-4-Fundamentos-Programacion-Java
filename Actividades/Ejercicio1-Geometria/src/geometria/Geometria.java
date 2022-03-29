@@ -26,6 +26,8 @@ public class Geometria {
 			System.out.println("2. Calcular radio de un circulo");
 			System.out.println("3. Calcular perimetro de un circulo");
 			System.out.println("4. Calcular area de un circulo");
+			System.out.println("4. Calcular area de un triangulo");
+			System.out.println("3. Calcular perimetro de un triangulo");
 			System.out.println("0. Salir");
 			System.out.println("-------------");
 			System.out.println("Escoja una opcion");
@@ -46,6 +48,12 @@ public class Geometria {
 				case 4:
 					areaCirculo();
 					break;
+				case 5:
+					areaTriangulo();
+					break;
+				case 6:
+					perimetroTriangulo();
+					break;
 				case 0:
 					System.out.println("Saliendo...");
 					System.exit(0);
@@ -65,6 +73,15 @@ public class Geometria {
 		}while(loop);
 			
 		}
+
+	private static void perimetroTriangulo() {
+		System.out.println("No implementado.");		
+	}
+
+	private static void areaTriangulo() {
+		System.out.println("No implementado.");
+		
+	}
 
 	private static void areaCirculo() {
 		try {

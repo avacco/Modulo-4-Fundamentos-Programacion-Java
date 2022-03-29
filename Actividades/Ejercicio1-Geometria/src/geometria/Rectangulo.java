@@ -10,6 +10,10 @@ public class Rectangulo {
 		this.altura = altura;
 	}
 
+	public Rectangulo() {
+
+	}
+
 	public double getBase() {
 		return base;
 	}
