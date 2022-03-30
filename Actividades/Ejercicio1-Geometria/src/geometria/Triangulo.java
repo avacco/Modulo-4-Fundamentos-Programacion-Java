@@ -1,6 +1,6 @@
 package geometria;
 
-public class Triangulo {
+public class Triangulo extends Figura {
 	
 	private double base;
 	private double altura;
@@ -8,7 +8,7 @@ public class Triangulo {
 	private double cateto2;
 	
 	public Triangulo() {
-		
+		super();
 	}
 	
 	public Triangulo(double base, double altura, double caateto1, double cateto2) {
@@ -51,12 +51,17 @@ public class Triangulo {
 		this.cateto2 = cateto2;
 	}
 	
-	public double areaTriangulo(){
-		return 1.2;
+
+	@Override
+	public double calcularArea() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
-	
-	public double perimetroTriangulo() {
-		return 1.2;
+
+	@Override
+	public double calcularPerimetro() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

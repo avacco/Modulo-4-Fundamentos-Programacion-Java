@@ -1,4 +1,4 @@
-package geometria;
+package modelo;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 /*
@@ -9,6 +9,9 @@ import java.util.Scanner;
  * Perímetro del círculo
  * Área de un círculo
  */
+
+import geometria.Circulo;
+import geometria.Rectangulo;
 
 
 
@@ -23,11 +26,12 @@ public class Geometria {
 			System.out.println("GEOMETRIA.");
 			System.out.println("=============");
 			System.out.println("1. Calcular area de un rectangulo");
-			System.out.println("2. Calcular radio de un circulo");
-			System.out.println("3. Calcular perimetro de un circulo");
-			System.out.println("4. Calcular area de un circulo");
-			System.out.println("4. Calcular area de un triangulo");
-			System.out.println("3. Calcular perimetro de un triangulo");
+			System.out.println("2. Calcular perimetro de un rectangulo");
+			System.out.println("3. Calcular radio de un circulo");
+			System.out.println("4. Calcular perimetro de un circulo");
+			System.out.println("5. Calcular area de un circulo");
+			System.out.println("6. Calcular area de un triangulo");
+			System.out.println("7. Calcular perimetro de un triangulo");
 			System.out.println("0. Salir");
 			System.out.println("-------------");
 			System.out.println("Escoja una opcion");
@@ -40,18 +44,21 @@ public class Geometria {
 					areaRectangulo();
 					break;
 				case 2:
-					radioCirculo();
+					perimetroRectangulo();
 					break;
 				case 3:
-					perimetroCirculo();
+					radioCirculo();
 					break;
 				case 4:
-					areaCirculo();
+					perimetroCirculo();
 					break;
 				case 5:
-					areaTriangulo();
+					areaCirculo();
 					break;
 				case 6:
+					areaTriangulo();
+					break;
+				case 7:
 					perimetroTriangulo();
 					break;
 				case 0:
@@ -88,7 +95,7 @@ public class Geometria {
 			System.out.println("Ingrese diametro del circulo");
 			double diametro = scanner.nextDouble();		
 			Circulo circulo = new Circulo(diametro);
-			double area = circulo.areaCirculo();
+			double area = circulo.calcularArea();
 			System.out.println("El area del circulo es: "+area);
 		} catch (InputMismatchException e) {
 			System.out.println("Ingrese numeros");
@@ -100,7 +107,7 @@ public class Geometria {
 			System.out.println("Ingrese diametro del circulo");
 			double diametro = scanner.nextDouble();		
 			Circulo circulo = new Circulo(diametro);
-			double perimetro = circulo.perimetroCirculo();
+			double perimetro = circulo.calcularPerimetro();
 			System.out.println("El perimetro del circulo es: "+perimetro);
 		} catch (InputMismatchException e) {
 			System.out.println("Ingrese numeros con o sin coma");
@@ -127,8 +134,22 @@ public class Geometria {
 			System.out.println("Ingrese altura en cm");
 			double altura = scanner.nextFloat();
 			Rectangulo rectangulo = new Rectangulo(base, altura);
-			double area = rectangulo.areaRectangulo();
+			double area = rectangulo.calcularArea();
 			System.out.println("El area del rectangulo es: "+area);
+		} catch (InputMismatchException e) {
+			System.out.println("Ingrese numeros con o sin coma");
+		}
+	}
+	
+	private static void perimetroRectangulo() {
+		try {
+			System.out.println("Ingrese base en cm");
+			double base = scanner.nextDouble();
+			System.out.println("Ingrese altura en cm");
+			double altura = scanner.nextFloat();
+			Rectangulo rectangulo = new Rectangulo(base, altura);
+			double perimetro = rectangulo.calcularArea();
+			System.out.println("El perimetro del rectangulo es: "+perimetro);
 		} catch (InputMismatchException e) {
 			System.out.println("Ingrese numeros con o sin coma");
 		}

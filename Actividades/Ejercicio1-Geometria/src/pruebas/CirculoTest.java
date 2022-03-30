@@ -51,7 +51,7 @@ class CirculoTest {
 		
 		//Caso1
 		Circulo circulo1 = new Circulo(65);
-		double perimetro1 = circulo1.perimetroCirculo();
+		double perimetro1 = circulo1.calcularPerimetro();
 		perimetro1 = Math.round(perimetro1);
 		assertEquals(204.0,perimetro1);
 
@@ -68,7 +68,7 @@ class CirculoTest {
 		
 		//Caso1
 		Circulo circulo1 = new Circulo(75);
-		double area1 = circulo1.areaCirculo();
+		double area1 = circulo1.calcularArea();
 		area1 = Math.round(area1);
 		assertEquals(4418.0,area1);
 

@@ -10,10 +10,10 @@ class RectanguloTest {
 
 	@Test
 	void testAreaRectangulo() {
-		int area1 = (int) (new Rectangulo(10,5)).areaRectangulo();
+		int area1 = (int) (new Rectangulo(10,5)).calcularArea();
 		assertEquals(area1,50);
 		
-		int area2 = (int) (new Rectangulo(5,5)).areaRectangulo();
+		int area2 = (int) (new Rectangulo(5,5)).calcularArea();
 		assertEquals(area2,25);
 	}
 
@@ -23,8 +23,8 @@ class RectanguloTest {
 		Rectangulo rectangulo = new Rectangulo();
 		rectangulo.setBase(5);
 		rectangulo.setAltura(5);
-		int area = (int) rectangulo.areaRectangulo();
-		assertEquals(area,50);
+		int area = (int) rectangulo.calcularArea();
+		assertEquals(area,25);
 		
 	}
 

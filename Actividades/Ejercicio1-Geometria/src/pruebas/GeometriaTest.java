@@ -1,8 +1,11 @@
-package geometria;
+package pruebas;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
+
+import geometria.Circulo;
+import geometria.Rectangulo;
 
 class GeometriaTest {
 
@@ -26,7 +29,7 @@ class GeometriaTest {
 		double altura = 15;
 		
 		Rectangulo rectangulo = new Rectangulo(base, altura);
-		double area = rectangulo.areaRectangulo();
+		double area = rectangulo.calcularArea();
 		assertEquals(area, 150);					
 	}
 
@@ -37,7 +40,7 @@ class GeometriaTest {
 		double diametro = 15;
 		
 		Circulo circulo = new Circulo(diametro);
-		double perimetro = circulo.perimetroCirculo();
+		double perimetro = circulo.calcularPerimetro();
 		assertEquals(perimetro, 47.12388980384689);
 	}
 	
@@ -48,7 +51,7 @@ class GeometriaTest {
 		double diametro = 20;
 		
 		Circulo circulo = new Circulo(diametro);
-		double area = circulo.areaCirculo();
+		double area = circulo.calcularArea();
 		assertEquals(area, 314.1592653589793);		
 	}
 

@@ -1,17 +1,18 @@
 package geometria;
 
-public class Rectangulo {
+public class Rectangulo extends Figura {
 	
 	private double base;
 	private double altura;
 	
 	public Rectangulo(double base, double altura) {
+		super();
 		this.base = base;
 		this.altura = altura;
 	}
 
 	public Rectangulo() {
-
+		super();
 	}
 
 	public double getBase() {
@@ -30,10 +31,14 @@ public class Rectangulo {
 		this.altura = altura;
 	}
 
-	public double areaRectangulo() {
-	
+	@Override
+	public double calcularArea() {
 		return this.base * this.altura;
-		
+	}
+
+	@Override
+	public double calcularPerimetro() {
+		return (this.base * 2) + (this.altura * 2);
 	}
 
 

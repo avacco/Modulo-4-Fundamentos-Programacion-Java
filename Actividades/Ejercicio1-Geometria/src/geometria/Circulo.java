@@ -1,16 +1,19 @@
 package geometria;
 
-public class Circulo {
+public class Circulo extends Figura{
 	
 	private double diametro;
 	
 	public Circulo(double diametro) {
+		super();
 		this.diametro = diametro;
 	}
 
 
 	public Circulo() {
+		super();
 	}
+	
 
 
 	public double getDiametro() {
@@ -26,12 +29,16 @@ public class Circulo {
 	public double radioCirculo() {
 		return this.diametro / 2;
 	}
-	
-	public double areaCirculo() {
+
+
+	@Override
+	public double calcularArea() {
 		return Math.PI * Math.pow((diametro/2), 2);
 	}
-	
-	public double perimetroCirculo() {
+
+
+	@Override
+	public double calcularPerimetro() {
 		return Math.PI * this.diametro;
 	}
 	
