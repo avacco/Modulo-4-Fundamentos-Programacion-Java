@@ -1,6 +1,6 @@
 package geometria;
 
-public class Rectangulo extends Figura {
+public class Rectangulo implements Figura {
 	
 	private double base;
 	private double altura;

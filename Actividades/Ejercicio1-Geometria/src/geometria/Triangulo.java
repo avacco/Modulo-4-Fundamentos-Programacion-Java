@@ -1,6 +1,6 @@
 package geometria;
 
-public class Triangulo extends Figura {
+public class Triangulo implements Figura {
 	
 	private double base;
 	private double altura;
