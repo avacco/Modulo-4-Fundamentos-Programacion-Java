@@ -4,8 +4,8 @@ public class Terrestre extends Transporte {
 
 	protected int cantidadRuedas;
 
-	public Terrestre(String tipoMotor, double capacidadCarga, int capacidadPasajeros, int cantidadRuedas) {
-		super(tipoMotor, capacidadCarga, capacidadPasajeros); //Constructor con atributos heredados
+	public Terrestre(String tipoMotor, double capacidadCarga, int capacidadPasajeros, int cantidadRuedas, int avaluo) {
+		super(tipoMotor, capacidadCarga, capacidadPasajeros, avaluo); //Constructor con atributos heredados
 		this.cantidadRuedas = cantidadRuedas; // Atributos propios
 	}
 	
