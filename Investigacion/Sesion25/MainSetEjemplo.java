@@ -7,7 +7,7 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.ArrayList;
 
-public class MainSet{
+public class MainSetEjemplo{
     public static void main(String[] args) {
         List<String> listadoLenguajes = new ArrayList<>( Arrays.asList("Java","PHP","Ruby","JS","Java","C++","C#"));
 
