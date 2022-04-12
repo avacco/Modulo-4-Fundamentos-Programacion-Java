@@ -1,27 +1,25 @@
-package cosas;
+package clases;
 
-import java.time.LocalDate;
-
-public class Auto extends Fecha {
+public class Auto {
 	private String ppu;
 	private String marca;
 	private String modelo;
-	private LocalDate fecha;
-	
-	// AUTO solo pertenece a 1 CLIENTE
+	private boolean mantenido;
+	private int fecha;
 	private Cliente poseedor;
 	
 	public Auto(){
-		super();
 	}
 	
-	public Auto(String ppu, String marca, String modelo, LocalDate fecha, Cliente poseedor) {
+	public Auto(String ppu, String marca, String modelo, int fecha, Cliente poseedor, boolean mantenido) {
 		super();
 		this.fecha = fecha;
 		this.ppu = ppu;
 		this.marca = marca;
 		this.modelo = modelo;
-		this.setPoseedor(poseedor);
+		this.poseedor = poseedor;
+		this.setMantenido(mantenido);
+		
 	}
 
 	public String getPpu() {
@@ -48,11 +46,11 @@ public class Auto extends Fecha {
 		this.modelo = modelo;
 	}
 
-	public LocalDate getFecha() {
+	public int getFecha() {
 		return fecha;
 	}
 	
-	public void setFecha(LocalDate fecha) {
+	public void setFecha(int fecha) {
 		this.fecha = fecha;
 	}
 
@@ -62,6 +60,14 @@ public class Auto extends Fecha {
 
 	public void setPoseedor(Cliente poseedor) {
 		this.poseedor = poseedor;
+	}
+
+	public boolean isMantenido() {
+		return mantenido;
+	}
+
+	public void setMantenido(boolean mantenido) {
+		this.mantenido = mantenido;
 	}
 
 	

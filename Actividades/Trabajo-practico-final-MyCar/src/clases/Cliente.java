@@ -1,4 +1,6 @@
-package cosas;
+package clases;
+
+import java.util.ArrayList;
 
 public class Cliente {
 	
@@ -7,7 +9,7 @@ public class Cliente {
 	private String rut;
 	private String correo;
 	private String fono;
-	
+	private ArrayList<Auto> autos = new ArrayList<>();
 	
 	public Cliente() {
 		
@@ -60,6 +62,28 @@ public class Cliente {
 	public void setFono(String fono) {
 		this.fono = fono;
 	}
+
+	public ArrayList<Auto> getAutos() {
+		return autos;
+	}
+
+	public void setAutos(ArrayList<Auto> autos) {
+		this.autos = autos;
+	}
 	
-	
+	public String autosCliente() {
+		// Declara un String autosCliente que ira sumando los autos del cliente
+		String autosCliente = "";
+		for (Auto auto : this.autos) {
+			autosCliente += "| PPU: "+auto.getPpu()+" |\n"
+						  + "| Marca: "+auto.getMarca()+" |\n"
+						  + "| Modelo: "+auto.getModelo()+" |\n"
+						  + "| Año: "+auto.getFecha()+" |\n"
+						  + "___________________________\n";
+		}
+		return autosCliente;
+	}
+	public void addAuto(Auto auto) {
+		this.autos.add(auto);
+	}
 }

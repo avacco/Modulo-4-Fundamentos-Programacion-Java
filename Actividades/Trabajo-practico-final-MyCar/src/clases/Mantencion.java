@@ -1,22 +1,25 @@
-package cosas;
+package clases;
+
+import java.time.LocalDate;
 
 public class Mantencion {
 
 	private String mantencionRealizada;
 	private String observaciones;
 	private int montoServicio;
-	
+	private LocalDate fechaMantencion;
 	private Auto auto;
 	
 	public Mantencion() {
 		
 	}
 	
-	public Mantencion(String mantencionRealizada, String observaciones, int montoServicio, Auto auto) {
+	public Mantencion(String mantencionRealizada, String observaciones, int montoServicio, Auto auto, LocalDate fechaMantencion) {
 		this.mantencionRealizada = mantencionRealizada;
 		this.observaciones = observaciones;
 		this.montoServicio = montoServicio;
-		this.setAuto(auto);
+		this.auto = auto;
+		this.fechaMantencion = fechaMantencion;
 	}
 
 	public String getMantencionRealizada() {
@@ -49,6 +52,14 @@ public class Mantencion {
 
 	public void setAuto(Auto auto) {
 		this.auto = auto;
+	}
+
+	public LocalDate getFechaMantencion() {
+		return fechaMantencion;
+	}
+
+	public void setFechaMantencion(LocalDate fechaMantencion) {
+		this.fechaMantencion = fechaMantencion;
 	}
 	
 	
