@@ -1,5 +1,6 @@
 package ctrl;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -77,7 +78,7 @@ public class Main {
 	private static void verProductos() {
 		String stringProductos = "";
 		for(Producto producto : productos) {
-			stringProductos = "Codigo: "+producto.getCodigo()+"\n"
+			stringProductos += "Codigo: "+producto.getCodigo()+"\n"
 							+ "Nombre: "+producto.getNombre()+"\n"
 							+ "Precio: "+producto.getPrecio()+"\n"
 							+ "===========================\n";
@@ -114,6 +115,7 @@ public class Main {
 	}
 
 	private static void crearVentas() {
+			scanner.nextLine();
 			boolean loop = true;
 			verProductos();
 			Venta venta = new Venta();
@@ -135,17 +137,46 @@ public class Main {
 					
 					DetalleVenta dv = new DetalleVenta(cantidad,producto);
 					venta.agregarDetalleVenta(dv);
+					int total =  venta.calcularTotal();
 					
+					scanner.nextLine();
 					System.out.println("¿Agregar mas productos? (si/no)");
 					String decision = scanner.nextLine();
 					
 					if (decision.equalsIgnoreCase("no")) {
+						
+						System.out.printf("El total a pagar es: %d %n%n"
+										+ "Elija metodo de pago (1-2): %n"
+										+ "1. Efectivo%n"
+										+ "2. Tarjeta%n",
+										total);
+						int metodoOpcion = scanner.nextInt();
+						
+						switch(metodoOpcion) {
+							case 1:
+								venta.setMedioPago(new Efectivo("Efectivo",total));
+								break;
+							case 2:
+								scanner.nextLine();
+								System.out.println("Ingrese nombre de cuenta");
+								String nombreCuenta = scanner.nextLine();
+								System.out.println("Ingrese numero de cuenta");
+								String numeroCuenta = scanner.nextLine();
+								venta.setMedioPago(new Tarjeta("Tarjeta",total,nombreCuenta,numeroCuenta));
+								break;
+							default:
+								System.out.println("Metodo de pago invalido. Intentelo de nuevo");
+								throw new Exception("METODO PAGO INVALIDO");
+						}
+						
 						loop = false;
 					}
 				
 				}while(loop);
-				
+				venta.setFechaVenta(LocalDate.now());
 				ventas.add(venta);
+				System.out.println("Venta realizada.");
+				
 			}catch(Exception e) {
 			}
 	}
@@ -160,7 +191,52 @@ public class Main {
 	}
 
 	private static void ventasDelDia() {
-		System.out.println("NO IMPLEMENTADO");
+		System.out.printf("VENTAS DEL DIA:%n"
+						+ "==============%n%n"
+						+ "1. Ventas con efectivo %n"
+						+ "2. Ventas con tarjeta %n"
+						+ "Elija una opcion%n");
+		int opcion = scanner.nextInt();
+		
+		switch(opcion) {
+			case 1:
+				for(Venta venta : ventas) {
+					if(venta.getMedioPago().getNombreMedio().equals("Efectivo")) {
+						System.out.printf("============================================== %n"
+										+ "Fecha venta: %s%n"
+										+ "Medio pago: %s%n"
+										+ "Productos comprados: %s%n"
+										+ "Total: %d%n"
+										+ "=============================================== %n",
+										venta.getFechaVenta(),
+										venta.getMedioPago().getNombreMedio(),
+										venta.getProductosComprados(),
+										venta.getMedioPago().getMonto());
+						
+					}
+				}
+				break;
+			case 2:
+				for(Venta venta : ventas) {
+					if(venta.getMedioPago().getNombreMedio().equals("Tarjeta")) {
+						System.out.printf("============================================= %n"
+										+ "Fecha venta: %s%n"
+										+ "Medio pago: %s%n"
+										+ "Nombre cuenta: %s%n"
+										+ "Numero cuenta: %s%n"
+										+ "Productos comprados: %s%n"
+										+ "Total: %d%n"
+										+ "=============================================== %n",
+										venta.getFechaVenta(),
+										venta.getMedioPago().getNombreMedio(),
+										venta.getMedioPago().getNombreCuenta(), // Sinceramente, no tengo idea que hice aqui
+										venta.getMedioPago().getNumeroCuenta(), // Pero funciona, asi que no me quejo.
+										venta.getProductosComprados(),
+										venta.getMedioPago().getMonto());
+					}
+				}
+				break;
+		}
 	}
 
 }

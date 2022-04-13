@@ -14,7 +14,8 @@ public class Tarjeta extends MedioPago{
 		this.nombreCuenta = nombreCuenta;
 		this.numeroCuenta = numeroCuenta;
 	}
-
+	
+	@Override
 	public String getNumeroCuenta() {
 		return numeroCuenta;
 	}
@@ -24,7 +25,7 @@ public class Tarjeta extends MedioPago{
 		this.numeroCuenta = numeroCuenta;
 	}
 
-
+	@Override
 	public String getNombreCuenta() {
 		return nombreCuenta;
 	}

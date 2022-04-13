@@ -38,4 +38,8 @@ public abstract class MedioPago {
 		this.monto = monto;
 	}
 
+	//TODO: Practicar mas con estas cosas
+	public abstract String getNombreCuenta();
+	public abstract String getNumeroCuenta();
+
 }
