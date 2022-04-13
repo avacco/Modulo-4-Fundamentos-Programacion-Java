@@ -3,6 +3,12 @@ package ctrl;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * 
+ * @author ANDRES
+ *
+ */
+
 public class Main {
 
 	static ArrayList<Producto> productos = new ArrayList<>();

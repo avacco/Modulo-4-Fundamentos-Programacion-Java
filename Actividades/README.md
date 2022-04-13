@@ -1,2 +1,3 @@
 ## Pendiente:
-* Actividad 6 (+7)
+* Actividad 5: Javadoc
+* Actividad 6 (+7): Funcionalidad, Javadoc, Pruebas
