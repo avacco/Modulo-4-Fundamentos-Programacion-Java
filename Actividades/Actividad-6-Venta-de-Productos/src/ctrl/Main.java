@@ -6,6 +6,12 @@ import java.util.Scanner;
 import mdpago.*;
 import prod.*;
 
+/**
+ * 
+ * @author ANDRES
+ *
+ */
+
 public class Main {
 	
 	static ArrayList<Venta> ventas = new ArrayList<>();
@@ -108,32 +114,40 @@ public class Main {
 	}
 
 	private static void crearVentas() {
-		
+			boolean loop = true;
 			verProductos();
 			Venta venta = new Venta();
-			
 			try {
-				System.out.println("Ingrese codigo del producto a vender");
-				String codigo = scanner.nextLine();
+				do {
+					System.out.println("Ingrese codigo del producto a vender");
+					String codigo = scanner.nextLine();
+					
+					Producto producto = buscarProducto(codigo);
+					
+					// Fuerza un error si producto es nulo
+					if (producto == null) {
+						System.out.println("Producto no encontrado.");
+						throw new Exception("");
+					}
+					
+					System.out.println("Ingrese la cantidad de productos a vender: ");
+					int cantidad = scanner.nextInt();
+					
+					DetalleVenta dv = new DetalleVenta(cantidad,producto);
+					venta.agregarDetalleVenta(dv);
+					
+					System.out.println("¿Agregar mas productos? (si/no)");
+					String decision = scanner.nextLine();
+					
+					if (decision.equalsIgnoreCase("no")) {
+						loop = false;
+					}
 				
-				Producto producto = buscarProducto(codigo);
+				}while(loop);
 				
-				// Fuerza un error si producto es nulo
-				if (producto == null) {
-					System.out.println("Producto no encontrado.");
-					throw new Exception("");
-				}
-				
-				System.out.println("Ingrese la cantidad de productos a vender: ");
-				int cantidad = scanner.nextInt();
-				
-				DetalleVenta dv = new DetalleVenta(cantidad,producto);
-				venta.
-				
+				ventas.add(venta);
 			}catch(Exception e) {
-				
 			}
-
 	}
 
 	private static Producto buscarProducto(String codigo) {
@@ -143,18 +157,10 @@ public class Main {
 			}
 		}
 		return null;
-		
 	}
 
 	private static void ventasDelDia() {
-		System.out.println("Ventas del dia \n ======================================\n");
-		for (Venta venta : ventas) {
-			System.out.printf("Productos: %s %n"
-							+ "Total %d %n",
-							venta.productosTotales(),
-							venta.getMedioPago().getMonto());
-		}
-		
+		System.out.println("NO IMPLEMENTADO");
 	}
 
 }
