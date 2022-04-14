@@ -4,6 +4,12 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import mdpago.MedioPago;
 
+/**
+ * En esta clase se guardan el detalle de venta, la fecha de la venta y el medio de pago utilizado.
+ * Tambien hay metodos que retornan un string con la lista de productos almacenados en el detalle de venta, y otro que retorna el valor total de los productos vendidos.
+ * @author ANDRES
+ *
+ */
 
 public class Venta {
 
@@ -49,6 +55,11 @@ public class Venta {
 		this.dv.add(detalleVenta);
 	}
 	
+	/**
+	 * Calcula el total de la venta sumando el subtotal de todos los detalles de venta en la clase.
+	 * @return total de la venta.
+	 */
+	
 	public int calcularTotal() {
 		int total = 0;	
 		for (DetalleVenta detalleVenta : this.dv) {
@@ -56,6 +67,11 @@ public class Venta {
 		}
 		return total;
 	}
+	
+	/**
+	 * Toma la cantidad y nombre de cada producto comprado en los detalles de venta y los junta en un string.
+	 * @return productos en forma de string
+	 */
 	
 	public String getProductosComprados() {
 		String productos = " Productos comprados: ";		

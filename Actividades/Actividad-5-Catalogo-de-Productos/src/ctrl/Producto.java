@@ -1,5 +1,12 @@
 package ctrl;
 
+/**
+ * Clase para objeto Producto
+ * 
+ * @author ANDRES
+ *
+ */
+
 public class Producto {
 
 	private String categoria;
@@ -7,9 +14,21 @@ public class Producto {
 	private String nombre;
 	private String descripcion;
 	
+	/**
+	 * Constructor vacio para crear instancias sin atributos.
+	 */
+	
 	public Producto() {
 		
 	}
+	
+	/**
+	 * Constructor comun con atributos
+	 * @param categoria del producto para agrupar con otros productos de su misma categoria
+	 * @param precio del producto para calculos de valor
+	 * @param nombre del producto 
+	 * @param descripcion para el producto que la distinga de otras de su mismo tipo
+	 */
 	
 	public Producto(String categoria, int precio, String nombre, String descripcion) {
 		this.categoria = categoria;

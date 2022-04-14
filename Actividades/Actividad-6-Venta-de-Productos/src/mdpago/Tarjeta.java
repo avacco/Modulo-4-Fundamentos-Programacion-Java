@@ -1,5 +1,12 @@
 package mdpago;
 
+/**
+ * Clase para objetos Tarjeta, hereda de MedioPago y tiene dos atributos propios, nombreCuenta y numeroCuenta.
+ * 
+ * @author ANDRES
+ *
+ */
+
 public class Tarjeta extends MedioPago{
 	
 	protected String nombreCuenta;

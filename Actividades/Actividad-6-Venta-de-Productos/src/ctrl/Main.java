@@ -8,6 +8,7 @@ import mdpago.*;
 import prod.*;
 
 /**
+ * Clase principal de control de la aplicacion
  * 
  * @author ANDRES
  *
@@ -25,11 +26,20 @@ public class Main {
 	private static final int VENTAS_DEL_DIA = 4;
 	
 	
+	/**
+	 * Metodo para inicio de aplicacion
+	 * @param args no utilizado, default de metodo main
+	 */
+	
 	public static void main(String[] args) {
 
 		menu();
 		
 	}
+	
+	/**
+	 * Metodo de menu que muestra en pantalla un listado de acciones posibles, toma un int del usuario que determinará el metodo a ejecutar
+	 */
 
 	private static void menu() {
 		int opcion = 1;
@@ -75,6 +85,10 @@ public class Main {
 		
 	}
 
+	/**
+	 * Metodo para la visualizacion de objetos Producto creados y guardados en el arrayList productos
+	 */
+	
 	private static void verProductos() {
 		String stringProductos = "";
 		for(Producto producto : productos) {
@@ -90,6 +104,10 @@ public class Main {
 		}
 		
 	}
+	
+	/**
+	 * Metodo para la creacion de objetos Producto. Toma inputs del usuario para los atributos codigo, nombre y precio, y los pasa por el constructor de la clase Producto.
+	 */
 
 	private static void crearProductos() {
 		scanner.nextLine();
@@ -113,6 +131,16 @@ public class Main {
 		}
 		
 	}
+	
+	/**
+	 * Metodo para la creacion de ventas. Antes de empezar, muestra los productos disponibles y declara una instancia Venta en blanco
+	 * Se entra en un bucle donde se pide al usuario el codigo del producto a vender y la cantidad. Estos datos se agregan a un objeto DetalleVenta que los almacenara
+	 * Despues de esto, se calcula el total de la venta a traves de un metodo de la clase Venta y se le pregunta al usuario si desea seguir añadiendo productos a la venta. Elegir "no" cierra el bucle y se pasa a la venta.
+	 * Cuando el usuario esta listo para pasar a la venta, se muestra en pantalla el total a pagar y se pregunta si se pagará en efectivo o tarjeta
+	 * Si se elije efectivo, se crea un objeto Efectivo con el total de la venta y se le asigna a Venta como MedioPago
+	 * Si se elije tarjeta, se pide un par de datos adicionales (nombre y numero de cuenta), se crea un objeto Tarjeta y se le asigna a Venta como MedioPago
+	 * Finalmente, se le asigna la fecha de hoy a Venta y se le añade a un arrayList con una lista de ventas creadas.
+	 */
 
 	private static void crearVentas() {
 			scanner.nextLine();
@@ -181,6 +209,12 @@ public class Main {
 			}
 	}
 
+	/**
+	 * Metodo de ayuda que busca productos segun el codigo y los retorna si los encuentra
+	 * @param codigo del producto a buscar
+	 * @return producto encontrado
+	 */
+	
 	private static Producto buscarProducto(String codigo) {
 		for(Producto producto : productos) {
 			if(producto.getCodigo().equalsIgnoreCase(codigo)) {
@@ -189,6 +223,10 @@ public class Main {
 		}
 		return null;
 	}
+	
+	/**
+	 * Este metodo muestra por pantalla las ventas del dia, filtradas por metodo de pago Efectivo o Tarjeta segun eleccion del usuario
+	 */
 
 	private static void ventasDelDia() {
 		System.out.printf("VENTAS DEL DIA:%n"

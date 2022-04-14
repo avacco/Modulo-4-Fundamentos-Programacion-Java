@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
+ * Clase de inicio y control de la aplicacion.
  * 
  * @author ANDRES
  *
@@ -17,7 +18,10 @@ public class Main {
 	private static final int MENU_VER_PRODUCTO = 2;
 	private static final int MENU_SALIR = 0;
 	
-	
+	/**
+	 * Llama al metodo menu nada mas iniciar la aplicacion.
+	 * @param args no utilizado, default de main.
+	 */
 	
 	public static void main(String[] args) {
 		menu();
@@ -25,7 +29,12 @@ public class Main {
 	}
 
 
+	/**
+	 * Esta clase muestra por pantalla de consola un listado con las opciones disponibles, agregar producto, ver lista de producto y salir. Toma el input del usuario y llama metodos correspondientes
+	 */
+	
 	private static void menu() {
+		
 		int opcion = 1;
 		do {
 			
@@ -51,6 +60,10 @@ public class Main {
 		
 	}
 
+	/**
+	 * Esta clase crea un objeto Producto con datos tomados de input del usuario (nombre, categoria y precio). Lo añade a un arrayList (productos) y muestra el producto por pantalla al terminar.
+	 */
+	
 	private static void agregarProductos() {
 		scanner.nextLine();
 		
@@ -73,6 +86,10 @@ public class Main {
 				producto.getPrecio(),
 				producto.getDescripcion());
 	}
+	
+	/**
+	 * Esta clase muestra por pantalla de consola la lista de objetos Producto creados y almacenados en el arrayList productos.
+	 */
 
 	private static void verProductos() {
 		System.out.println("Lista de productos");

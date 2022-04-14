@@ -1,5 +1,12 @@
 package mdpago;
 
+/**
+ * Clase para objetos Efectivo, hereda de MedioPago
+ * 
+ * @author ANDRES
+ *
+ */
+
 public class Efectivo extends MedioPago{
 
 	public Efectivo() {

@@ -1,5 +1,12 @@
 package mdpago;
 
+/**
+ * Superclase para medios de pago. Medios de pago pueden haber decenas pero todos tendran al menos un nombre y un monto asociado.
+ * 
+ * @author ANDRES
+ *
+ */
+
 public abstract class MedioPago {
 
 	protected String nombreMedio;
