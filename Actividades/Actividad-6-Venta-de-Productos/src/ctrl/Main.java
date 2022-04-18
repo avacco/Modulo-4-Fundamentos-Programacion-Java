@@ -16,9 +16,9 @@ import prod.*;
 
 public class Main {
 	
-	static ArrayList<Venta> ventas = new ArrayList<>();
-	static ArrayList<Producto> productos = new ArrayList<>();
-	static Scanner scanner = new Scanner(System.in);
+	public static ArrayList<Venta> ventas = new ArrayList<>();
+	public static ArrayList<Producto> productos = new ArrayList<>();
+	public static Scanner scanner = new Scanner(System.in);
 	private static final int SALIR = 0;
 	private static final int CREAR_PRODUCTOS = 1;
 	private static final int VER_PRODUCTOS = 2;
@@ -41,7 +41,7 @@ public class Main {
 	 * Metodo de menu que muestra en pantalla un listado de acciones posibles, toma un int del usuario que determinará el metodo a ejecutar
 	 */
 
-	private static void menu() {
+	public static void menu() {
 		int opcion = 1;
 
 			do {
@@ -77,7 +77,7 @@ public class Main {
 							break;
 					}
 				}catch(Exception e) {
-					System.out.println("Eleccion invalida. Intentelo de nuevo.");
+					System.out.println("Intentelo de nuevo.");
 					scanner.nextLine();
 				}
 				
@@ -89,7 +89,7 @@ public class Main {
 	 * Metodo para la visualizacion de objetos Producto creados y guardados en el arrayList productos
 	 */
 	
-	private static void verProductos() {
+	public static void verProductos() {
 		String stringProductos = "";
 		for(Producto producto : productos) {
 			stringProductos += "Codigo: "+producto.getCodigo()+"\n"
@@ -109,7 +109,7 @@ public class Main {
 	 * Metodo para la creacion de objetos Producto. Toma inputs del usuario para los atributos codigo, nombre y precio, y los pasa por el constructor de la clase Producto.
 	 */
 
-	private static void crearProductos() {
+	public static void crearProductos() {
 		scanner.nextLine();
 		
 		try {
@@ -142,7 +142,7 @@ public class Main {
 	 * Finalmente, se le asigna la fecha de hoy a Venta y se le añade a un arrayList con una lista de ventas creadas.
 	 */
 
-	private static void crearVentas() {
+	public static void crearVentas() {
 			scanner.nextLine();
 			boolean loop = true;
 			verProductos();
@@ -215,7 +215,7 @@ public class Main {
 	 * @return producto encontrado
 	 */
 	
-	private static Producto buscarProducto(String codigo) {
+	public static Producto buscarProducto(String codigo) {
 		for(Producto producto : productos) {
 			if(producto.getCodigo().equalsIgnoreCase(codigo)) {
 				return producto;
@@ -226,9 +226,16 @@ public class Main {
 	
 	/**
 	 * Este metodo muestra por pantalla las ventas del dia, filtradas por metodo de pago Efectivo o Tarjeta segun eleccion del usuario
+	 * @throws Exception 
 	 */
 
-	private static void ventasDelDia() {
+	public static void ventasDelDia() throws Exception {
+		
+		if(ventas.isEmpty()) {
+			System.out.println("No existen ventas realizadas.");
+			throw new Exception("LISTA VACIA");
+		}
+		
 		System.out.printf("VENTAS DEL DIA:%n"
 						+ "==============%n%n"
 						+ "1. Ventas con efectivo %n"
